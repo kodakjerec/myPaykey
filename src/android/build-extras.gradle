@@ -1,0 +1,18 @@
+allprojects {
+    repositories {
+        flatDir{
+            dirs 'src/main/paykey-libs'
+        }
+    }
+}
+
+dependencies {
+  /*IMPORTANT! : The library importing order is very important! please do not change it */
+  compile(name: 'PayKeyUI', ext: 'aar')
+  compile(name: 'PayKeySDK', ext: 'aar')
+  /*IMPORTANT! : The library importing order is very important! please do not change it */
+  compile(name: 'PayKeyAnalytics', ext: 'aar')
+  compile 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.2.41'
+  compile 'com.mixpanel.android:mixpanel-android:5.1.4'
+  compile 'com.mcxiaoke.volley:library:1.0.19'
+}

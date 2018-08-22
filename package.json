@@ -1,0 +1,18 @@
+{
+  "name": "cordova-plugin-sc-mobile-paykey",
+  "version": "1.0.0",
+  "description": "",
+  "cordova": {
+    "id": "cordova-plugin-sc-mobile-paykey",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-android"
+  ],
+  "author": "kota",
+  "license": "TP"
+}

@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="cordova-plugin-sc-mobile-paykey" version="1.0.0" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>cordova-plugin-sc-mobile-paykey</name>
+    <description>only for version: paykey-schk-11 </description>
+    <author>kota</author>
+    <keyword>paykey</keyword>
+    <engines>
+        <engine name="cordova" version=">=5.0.0"/>
+    </engines>
+    <platform name="android">
+        <config-file parent="/*" target="res/xml/config.xml">
+            <feature name="ScMobilePayKey">
+                <param name="android-package" value="org.paykey.keyboard.sample" />
+            </feature>
+        </config-file>
+
+        <comment>改寫application設定</comment>
+        <edit-config file="AndroidManifest.xml" target="/manifest/application" mode="merge">
+            <application android:name=".SampleApp" />
+        </edit-config>
+
+        <comment>MainActivity新增屬性</comment>
+        <config-file parent="/manifest/application/activity[@android:name='MainActivity']/intent-filter" target="AndroidManifest.xml">
+            <action android:name="android.view.InputMethod" />
+        </config-file>
+
+        <comment>掛載activity..等</comment>
+        <config-file parent="/manifest/application" target="AndroidManifest.xml">
+            <activity android:label="@string/app_name" android:name="org.paykey.keyboard.sample.PayKeyActivity" android:theme="@style/AppTheme.NoActionBar" />
+            <activity android:name="org.paykey.keyboard.sample.MyKeyboardSetupActivity" android:theme="@style/MyPayKeySetupActivityTheme" />
+            <service android:exported="false" android:label="@string/english_ime_name" android:name="org.paykey.KeyboardController" android:permission="android.permission.BIND_INPUT_METHOD" android:process=":paykey">
+                <intent-filter>
+                    <action android:name="android.view.InputMethod" />
+                </intent-filter>
+                <meta-data android:name="android.view.im" android:resource="@xml/method" />
+            </service>
+            <activity android:exported="false" android:name="org.paykey.settings.PayKeySettingsActivity" android:process=":paykey" />
+            <activity android:exported="false" android:label="Settings" android:name="org.paykey.settings.v2.PayKeySettingsActivity" android:theme="@style/AppTheme.Settings" />
+            <activity android:exported="false" android:name="org.paykey.settings.PayKeyLanguagesActivity" android:process=":paykey" />
+            <activity android:exported="false" android:name="org.paykey.PermissionsActivity" android:process=":paykey" android:taskAffinity="" android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+            <provider android:authorities="@string/multiprocess_preferences_authority" android:exported="false" android:name="org.paykey.PKSharedPreferences" android:process=":paykey" />
+            <receiver android:name="org.paykey.KeyboardChangeReceiver">
+                <intent-filter>
+                    <action android:name="android.intent.action.INPUT_METHOD_CHANGED" />
+                </intent-filter>
+            </receiver>
+        </config-file>
+        <comment>原始檔</comment>
+        <source-file src="src/android/mainProgram/SampleApp.java" target-dir="src/com/scb/mb/tw/" />
+        <source-file src="src/android/paykey/callStrategy/APIResult.java" target-dir="src/org/paykey/keyboard/sample/callStrategy/" />
+        <source-file src="src/android/paykey/callStrategy/ApiResultCallStrategy.java" target-dir="src/org/paykey/keyboard/sample/callStrategy/" />
+        <source-file src="src/android/paykey/util/CypherObjectHelper.java" target-dir="src/org/paykey/keyboard/sample/util/" />
+        <source-file src="src/android/paykey/util/DemoFingerprintServiceHandler.java" target-dir="src/org/paykey/keyboard/sample/util/" />
+        <source-file src="src/android/paykey/util/KeyboardUtil.java" target-dir="src/org/paykey/keyboard/sample/util/" />
+        <source-file src="src/android/paykey/util/Utils.java" target-dir="src/org/paykey/keyboard/sample/util/" />        
+        <source-file src="src/android/paykey/MyKeyboardSetupActivity.java" target-dir="src/org/paykey/keyboard/sample/" />
+        <source-file src="src/android/paykey/PayKeyActivity.java" target-dir="src/org/paykey/keyboard/sample/" />
+        <source-file src="src/android/paykey/PayKeyApiResultCallStrategy.java" target-dir="src/org/paykey/keyboard/sample/" />
+        <source-file src="src/android/paykey/PayKeyClient.java" target-dir="src/org/paykey/keyboard/sample/" />
+        <source-file src="src/android/paykey/PayKeyDelegateImpl.java" target-dir="src/org/paykey/keyboard/sample/" />
+        <source-file src="src/android/paykey/Settings.java" target-dir="src/org/paykey/keyboard/sample/" />
+        <comment>資源檔</comment>
+        <resource-file src="res/paykey-libs" target="paykey-libs" />
+        <resource-file src="res/drawable/close.xml" target="res/drawable/close.xml" />
+        <resource-file src="res/drawable/ic_euro_symbol_disabled_24dp.xml" target="res/drawable/ic_euro_symbol_disabled_24dp.xml" />
+        <resource-file src="res/drawable/ic_euro_symbol_enabled_24dp.xml" target="res/drawable/ic_euro_symbol_enabled_24dp.xml" />
+        <resource-file src="res/drawable/ic_euro_symbol_inverted_24dp.xml" target="res/drawable/ic_euro_symbol_inverted_24dp.xml" />
+        <resource-file src="res/layout/activity_languages.xml" target="res/layout/activity_languages.xml" />
+        <resource-file src="res/layout/activity_main.xml" target="res/layout/activity_main.xml" />
+        <resource-file src="res/layout/activity_my_keyboard_setup.xml" target="res/layout/activity_my_keyboard_setup.xml" />
+        <resource-file src="res/layout/content_main.xml" target="res/layout/content_main.xml" />
+        <resource-file src="res/layout/layout_my_setup.xml" target="res/layout/layout_my_setup.xml" />
+        <resource-file src="res/layout/list_header.xml" target="res/layout/list_header.xml" />
+        <resource-file src="res/layout/list_row.xml" target="res/layout/list_row.xml" />
+        <resource-file src="res/menu/menu_main.xml" target="res/menu/menu_main.xml" />
+        <resource-file src="res/values/paykey-colors.xml" target="res/values/paykey-colors.xml" />
+        <resource-file src="res/values/paykey-dimens.xml" target="res/values/paykey-dimens.xml" />
+        <resource-file src="res/values/paykey-styles.xml" target="res/values/paykey-styles.xml" />
+        <resource-file src="res/values/paykey-values.xml" target="res/values/paykey-values.xml" />
+        <comment>附加至build.gradle</comment>
+        <framework src="src/android/build-extras.gradle" custom="true" type="gradleReference" />
+    </platform>
+    <platform name="ios">
+        <config-file parent="/*" target="config.xml">
+            <feature name="ScMobilePayKey">
+                <param name="ios-package" value="ScMobilePayKey" />
+            </feature>
+        </config-file>
+    </platform>
+</plugin>

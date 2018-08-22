@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="english_ime_name">SC Mobile Keyboard</string>
+
+    <!-- PayKey Button Supported/Unsupported Packages -->
+    <string-array name="supported_package_list">
+    </string-array>
+
+    <string-array name="unsupported_package_list">
+        <!--<item>com.whatsapp</item>-->
+    </string-array>
+
+    <string name="action_settings">Settings</string>
+    <string name="SuccessText"><![CDATA[some success <b>text</b>]]></string>
+    <string name="FailureText"><![CDATA[some <b>FAILURE</b> text]]></string>
+</resources>
